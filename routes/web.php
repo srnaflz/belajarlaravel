@@ -17,6 +17,7 @@ use App\Pembeli;
 Route::get('/', function () {
     return  Buku::all();
 });
+
 /*Route::get('/', function () {
     return view('welcome');
 });*/
