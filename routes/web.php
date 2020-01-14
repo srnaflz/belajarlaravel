@@ -1,7 +1,7 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -17,6 +17,29 @@ use App\Pembeli;
 Route::get('/', function () {
     return  Buku::all();
 });
+
+Route::get('contoh', 'ContohController@latihan');
+
+Route::get('profil', 'ContohController@latihan2');
+
+Route::get('profil2', 'ContohController@latihan3');
+
+Route::get('profil3', 'ContohController@latihan4');
+
+Route::get('datadiri', 'ContohController@biodata');
+
+//optional
+//Route::get('pakaian2/{baju?}', 'ContohController@baju');
+//basic
+Route::get('belanja/{makan?}/{minum?}/{ukuran?}', 'ContohController@menu');
+Route::get('get-buku', 'BukuController@index');
+Route::get('get-buku/{id}', 'BukuController@show');
+Route::get('create-buku', 'BukuController@databaru');
+Route::get('delete-buku/{id}', 'BukuController@delete');
+Route::get('update-buku/{id}', 'BukuController@update');
+Route::get('hitung-buku', 'BukuController@hitungbuku');
+
+
 
 /*Route::get('/', function () {
     return view('welcome');
