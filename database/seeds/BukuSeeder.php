@@ -51,9 +51,5 @@ class BukuSeeder extends Seeder
         $buku->synopsis= "tradisonal ......";
         $buku->status = 1;
         $buku->save();
-        //
-        //
-        //
-        //
-        //
+    
     }}

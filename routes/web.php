@@ -14,7 +14,60 @@
 use App\Buku;
 use App\Penjual;
 use App\Pembeli;
-Route::get('/', function () {
+use App\Gaji;
+//6-2-2020
+use App\Mahasiswa;
+use App\Dosen;
+use App\Hobi;
+use App\Wali;
+
+
+#Mencari Mahasiswa dengan Nim
+Route::get('relasi-1',function(){
+    #Temukan nahasiswa dengan Nim 1015015072
+    $mahasiswa = Mahasiswa::where('nim','=','1015015072')->first();
+
+    #TAmpilkan nama  wali mahasiswa
+    return $mahasiswa->wali->nama;
+});
+Route::get('relasi-2',function (){
+    #mencari data mahasiswa dengn nim  1015015072
+    $mahasiswa = Mahasiswa::where('nim','=','1015015072')->first();
+    
+    #TAmpilkan nama dosen pembimbing
+    return $mahasiswa->dosen->nama;
+
+});
+Route::get('relasi-3',function(){
+    #menacari data dosen yang bernama yulianto
+    $dosen = Dosen::where('nama', '=',  'Abdul Mustofa')->first();
+    #tampilkan seluruh data mahasiswa didiknya
+    foreach($dosen->mahasiswa as $temp)
+    echo '<li> Nama : ' . $temp->nama.
+    '<strong>' . $temp->nim . '</strong></li>';
+});
+Route::get('relasi-4', function(){
+    #mencari data mahasiswa yang bernama noviyanto rachmadi
+    $novay = Mahasiswa::where('nama', '=', 'Noviyanto Rachmadi')->first();
+    #menampilkan seluruh hobi si novay
+    foreach($novay->hobi as $temp)
+    echo '<li>' . $temp->hobi . '</li>';
+});
+Route::get('relasi-5', function(){
+    #mencari data hobi yang bernama Mandi Hujan
+    $mandi_hujan = Hobi::where('hobi', '=', 'Mandi Hujan')->first();
+    #Menampilkan semua mahasiswa yang punya hobi mandi hujan
+    foreach($mandi_hujan->mahasiswa as $temp)
+    echo '<li> Nama : ' . $temp->nama .
+    '<strong>' . $temp->nim  . '</strong></li>';
+});
+Route::get('eloquent', function (){
+    $data = Mahasiswa::with('wali','dosen','hobi')->get();
+    return view('eloquent',compact('data'));
+});
+
+
+Route::get('/buku', function () {
     return  Buku::all();
 });
 
@@ -32,18 +85,50 @@ Route::get('datadiri', 'ContohController@biodata');
 //Route::get('pakaian2/{baju?}', 'ContohController@baju');
 //basic
 Route::get('belanja/{makan?}/{minum?}/{ukuran?}', 'ContohController@menu');
+//CRUD BUKU
 Route::get('get-buku', 'BukuController@index');
 Route::get('get-buku/{id}', 'BukuController@show');
-Route::get('create-buku', 'BukuController@databaru');
+Route::get('create-buku/{judul}', 'BukuController@databaru');
 Route::get('delete-buku/{id}', 'BukuController@delete');
-Route::get('update-buku/{id}', 'BukuController@update');
+Route::get('update-buku/{id}/{judul}', 'BukuController@update');
 Route::get('hitung-buku', 'BukuController@hitungbuku');
 
+//CRUD SISWA
+Route::get('get-siswa', 'SiswaController@index');
+Route::get('get-siswa/{id}', 'SiswaController@show');
+Route::get('create-siswa/{nis}/{nama}', 'SiswaController@create');
+Route::get('delete-siswa/{id}', 'SiswaController@destroy');
+Route::get('update-siswa/{id}/{nis}/{nama}', 'SiswaController@update');
+
+//Passing data 4-februari-2020
+Route::get('pass','PracticeController@pass');
+Route::get('pass1','PracticeController@pass1');
+Route::get('status/{a?}','PracticeController@status');
+Route::get('buku','PracticeController@loop');
+
+//book
+Route::get('book','BukuController@index');
+Route::get('book/{id}','BukuController@show');
+
+//gaji 5-februari-2020
+Route::get('penggajihan','GajiController@index');
+Route::get('penggajihan/{id}','GajiController@show');
+
+//Belajar Blade Templating 6-februari-2020
+Route::get('/profil',function(){
+    return view('profil');
+});
+Route::get('/contact',function(){
+    return view('contact');
+});
+Route::get('/blog',function(){
+    return view('blog');
+});
 
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+});
 Route::get('/saya', function (){
     return "Zulfa Nursaidah";
 });

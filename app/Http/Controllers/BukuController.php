@@ -11,11 +11,11 @@ class BukuController extends Controller
 
     public function index(){
         $buku = Buku::all();
-        return $buku;
+        return view('buku.index', compact('buku'));
     }
     public function show($id){
         $buku = Buku::find($id);
-        return $buku;
+        return view('buku.show',compact('buku'));
     }  
     
     public function hitungbuku(){
@@ -23,9 +23,9 @@ class BukuController extends Controller
         return $buku;
     } 
 
-    public function databaru(){
-        $buku = Buku::find(5);
-        $buku->judul = "Belajar Mengaji";
+    public function databaru($jdl){
+        $buku = new Buku;
+        $buku->judul = $jdl;
         $buku->jumlah_halaman = 400;
         $buku->penerbit = 'granmedia';
         $buku->synopsis = "belajar hijaiyah";
@@ -35,9 +35,9 @@ class BukuController extends Controller
         return $buku;
 
     }
-    public function update($id){
+    public function update($id,$judul){
         $buku = Buku::find($id);
-        $buku->judul = "Belajar Updet";
+        $buku->judul = $judul;
         $buku->jumlah_halaman = 4002;
         $buku->penerbit = 'Lorem Ipsum';
         $buku->synopsis = "cv lorem ipsum";
